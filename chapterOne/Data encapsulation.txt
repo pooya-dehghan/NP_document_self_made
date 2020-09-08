@@ -1,0 +1,8 @@
+the advantage of this abstraction is that when programming an application we only need to consider the highest level protocol 
+for example a web browser needs only to implement the protocols dealing with website(HTTP , HTML ,CSS)
+
+if i want to define for you the flow and transmiting data from highest layer to lowest i can make an example like this ->
+
+text -> HTML -> HTTP -> TCP -> IP -> Ethernet
+
+when we use socket api all of these have been handled automatically 

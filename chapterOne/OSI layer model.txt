@@ -1,0 +1,39 @@
+if we want our computers to communicate we need some rules and some agreed upon protocols
+
+so if we want some protocols to break down the complexity of networking we need some layers 
+the most used method is OSI open systems interconnection which is called OSI model
+
+this model has layers like this ...
+
+7_ Application
+6_Presentaion
+5_Session
+4_Transport
+3_Network
+2_Data link
+1_Physical
+
+
+Physical : this the level of physical communication in the real world , at this level we have specefications for things such as the voltage on the
+ethernet cable , what each pin on a connector is for,the radio frequency fo wifi and ...
+
+Data Link : this level builds on physical layer , it deals with protocols for directly communicatin between two nodes;
+it defines how a direct message between nodes starts and ends , error detection and correction and flow control.
+
+Network : the network layer provides the methods to transmit data sequence (packets) between nodes in diffrent networks;
+it provides methods to rout packets from one node to another (with out any physical connection) by transfering through many intermediate nodes
+this the layer that the internet protocol defiend on 
+
+Transport layer : at this layer we have methods to reliably deliver variable length data between hosts , these methods deal with splitting up data ,
+recommbining it ensure data arrive in order ; TCP and UDP are so common
+
+Session layer :  this layer builds on transport layer by adding method to establish, checkpoint ,suspend ,resume and terminate dialogs
+
+Presentaion : this is the lowest layer at which data structure and presentaion for application are defined , concerns such as data encoding 
+serialization and encryption are handled here.
+
+Application : the applications which user interfaces with ( such as web browsers and email clients )exist here , this layer 
+uses the services which are handled by past six layer.
+
+a quick note here we call any data unit on layers packet ( which is not correct by the way because we call em on layer 2 Fram
+on layer 3 we call em packet on layer 4 we call em segment )

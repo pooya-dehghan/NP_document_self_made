@@ -1,0 +1,8 @@
+the TCP/IP protocol suite is the most common network communication model used today (it has 4 layer instead of 7)
+layers are like this : 
+
+4_procces application
+3_Host to Host
+2_internet
+1_network access
+
