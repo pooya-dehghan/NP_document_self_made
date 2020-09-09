@@ -1,0 +1,10 @@
+when a packet is routed from one sender to one reiver it uses unicast addressing . this is the most common type of addressing 
+all of the protocols we are gonna deal with use this unicast addressing
+
+broadcast addrssing allows a single sender to address a packet to all recipients simultaneously.
+it is typically used to deliver a packet to every receiver on an entire subnet.
+
+If a broadcast is a one-to-all communication, then multicast is a one-to-many communication. Multicast involves some group management, and a message is addressed and delivered to members of a group.
+
+Anycast addressed packets are used to deliver a message to one recipient when you don't care who that recipient is. This is useful if you have several servers that provide the same functionality, and you simply want one of them (you don't care which) to handle your request.
+

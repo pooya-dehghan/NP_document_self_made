@@ -1,0 +1,5 @@
+in client server model 
+one party sends requests and another party recieve and answer that req(it listens for connections)
+the client knowing address and port number that server is listening on establishes a connection by sending first packet
+
+For example, the web server at example.com listens on port 80 (HTTP) and port 443 (HTTPS). A web browser (client) must establish the connection by sending the first packet to the web server address and port.

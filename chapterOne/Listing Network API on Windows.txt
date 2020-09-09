@@ -1,0 +1,79 @@
+The window networking api is called Winsock.
+when ever we are using winsock we must first initialize it.
+this is done with a call to WSAStartup().here is a small c program win_init.c, showing the initialization and cleanup of Winsock:
+/*win_init.c*/
+
+#include <stdio.h>
+#include <winsock2.h>
+#pragma comment(lib, "ws2_32.lib")
+ 
+int main() {
+    WSADATA d;
+ 
+    if (WSAStartup(MAKEWORD(2, 2), &d)) {
+        printf("Failed to initialize.\n");
+        return -1;
+    }
+ 
+    WSACleanup();
+    printf("Ok.\n");
+    return 0;
+}
+
+The WSAStartup() function is called with the requested version, Winsock 2.2 in this case, and a WSADATA structure. The WSADATA structure will be filled in by WSAStartup() with details about the Windows Sockets implementation. The WSAStartup() function returns 0 upon success, and non-zero upon failure.
+When a Winsock program is finished, it should call WSACleanup().
+If you are using Microsoft Visual C as your compiler, then #pragma comment(lib, "ws2_32.lib") tells Microsoft Visual C to link the executable with the Winsock library, ws2_32.lib.
+
+If you are using MinGW as your compiler, the pragma is ignored. You need to explicitly tell the compiler to link in the library by adding the command-line option, -lws2_32. For example, you can compile this program using MinGW with the following command:gcc win_init.c -o win_init.exe -lws2_32
+
+To begin with, we need to define _WIN32_WINNT and include the needed headers:/*win_list.c*/
+
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0600
+#endif
+ 
+#include <winsock2.h>
+#include <iphlpapi.h>
+#include <ws2tcpip.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+The _WIN32_WINNT macro must be defined first so that the proper version of the Windows headers are included. winsock2.h, iphlpapi.h, and ws2tcpip.h are the Windows headers we need in order to list network adapters. We need stdio.h for the printf() function and stdlib.h for memory allocation.
+If you're compiling with MinGW, these lines will have no effect. You will need to link to these libraries explicitly on the command line, for example, gcc win_list.c -o win_list.exe -liphlpapi -lws2_32.
+We then enter the main() function and initialize Winsock 2.2 using WSAStartup() as described earlier. We check its return value to detect any errors:/*win_list.c continued*/
+
+int main() {
+
+    WSADATA d;
+    if (WSAStartup(MAKEWORD(2, 2), &d)) {
+        printf("Failed to initialize.\n");
+        return -1;
+    }
+
+Next, we allocate memory for the adapters, and we request the adapters' addresses from Windows using the GetAdapterAddresses() function:/*win_list.c continued*/
+
+    DWORD asize = 20000;
+    PIP_ADAPTER_ADDRESSES adapters;
+    do {
+        adapters = (PIP_ADAPTER_ADDRESSES)malloc(asize);
+
+        if (!adapters) {
+            printf("Couldn't allocate %ld bytes for adapters.\n", asize);
+            WSACleanup();
+            return -1;
+        }
+
+        int r = GetAdaptersAddresses(AF_UNSPEC, GAA_FLAG_INCLUDE_PREFIX, 0,
+                adapters, &asize);
+        if (r == ERROR_BUFFER_OVERFLOW) {
+            printf("GetAdaptersAddresses wants %ld bytes.\n", asize);
+            free(adapters);
+        } else if (r == ERROR_SUCCESS) {
+            break;
+        } else {
+            printf("Error from GetAdaptersAddresses: %d\n", r);
+            free(adapters);
+            WSACleanup();
+            return -1;
+        }
+    } while (!adapters);

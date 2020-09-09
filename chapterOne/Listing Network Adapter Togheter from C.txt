@@ -1,0 +1,3 @@
+NOW MY KINGDOM IS GOING TO BEGUN
+
+sometimes its useful for your C program to know what your local addrss is.

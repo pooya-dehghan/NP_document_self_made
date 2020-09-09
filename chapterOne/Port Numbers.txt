@@ -1,0 +1,8 @@
+An IP address alone isn't quite enough. We need port numbers. To return to the telephone analogy, if IP addresses are phone numbers, then port numbers are like phone extensions.
+
+Generally, an IP address gets a packet routed to a specific system, but a port number is used to route the packet to a specific application on that system.
+
+For example, on your system, you may be running multiple web browsers, an email client, and a video-conferencing client. When your computer receives a TCP segment or UDP datagram, your operating system looks at the destination port number in that packet.
+That port number is used to look up which application should handle it.
+
+guys dont use reserevd ports !!!

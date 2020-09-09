@@ -1,0 +1,13 @@
+A socket is one end point of a communication link between systems . it`s an abstraction in which your application can send and receive data over network,
+pretty much similar to file IO and how you use functions to handle read and write.
+
+An open socket is uniquely defined by a 5-tuple consisting of the following:
+
+!Local IP Address 
+@Local Port
+#Remote IP address 
+$Remote Port
+%Protocol (UDP or TCP)
+
+This 5-tuple is important, as it is how your operating system knows which application is responsible for any packets received. For example, if you use two web browsers to establish two simultaneous connections to example.com on port 80, then your operating system keeps the connections separate by looking at the local IP address, local port, remote IP address, remote port, and protocol. In this case, the local IP addresses, remote IP addresses, remote port (80), and protocol (TCP) are identical.
+The deciding factor then is the local port (also called the ephemeral port), which will have been chosen to be different by the operating system for connection. This 5-tuple is also important to understand how NAT works. A private network may have many systems accessing the same outside resource, and the router NAT must store this five tuple for each connection in order to know how to route received packets back into the private network.
