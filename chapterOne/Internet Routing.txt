@@ -1,0 +1,4 @@
+when you make a connection to network , your data first transmits to your local router.
+from there it is transmited to another router , which is connected to another router , and so on. 
+eventually your data reaches to router which is connected to receiving device 
+use tracert to see how many router you pass to eventually reach to a website

@@ -1,0 +1,8 @@
+all internet protocol traffic routes to an address;
+IPv4 addresses are 32 bit long and they are divided into four section each places a decimal between 0 and 255
+like this 
+192.168.0.1
+we have an address called loopback which is 127.0.0.1 this address tells establish a conection with myself
+
+IPv6 addresses are 128 bits long. They are written as eight groups of four hexadecimal characters delineated by colons. A hexadecimal character can be from 0-9 or from a-f. Here are some examples of IPv6 addresses
+fe80:0000:0000:0000:75f4:ac69:5fa7:67f9

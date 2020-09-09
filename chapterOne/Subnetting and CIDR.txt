@@ -1,0 +1,12 @@
+ip addresses can split into parts.
+the most significant bits are used to identify the network or subnetwork and the least significant bits can be used to identify the 
+specific device on the network.
+IPv4 traditionally uses a mask notaion to identify the IP address parts. for example consider a router on the 10.0.0.0 network with 
+a subnetmask of 255.255.255.0 this router can take any incoming packet and perform a bitwise AND operation with the subnet mask
+to determine whether the packet belongs on local subnet or needs to be forwarded on.
+which produce 10.0.0.0 
+                                              EXAMPLE
+this router recievs a packet to be delivered to 10.0.0.105 it does a bitwise AND operation on this address with the subnet mask of 
+255.255.255.0 which produce 10.0.0.0 that matches subnet of the router , so the traffic is local .
+if instead we consider a packet destinaid for 10.0.15.22 the result of the bitwise is 10.0.15.0 this address doesnt match the subnet router is on
+and so it must be forwarded.

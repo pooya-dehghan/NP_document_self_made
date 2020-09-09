@@ -1,0 +1,5 @@
+the internet protocol can only route packets to an IP address , not a name .
+so if you try to connect to a website your system must convert domain name to a ip address for the server that hosts that website
+this is done by DNS (domain name system) 
+there are some public ip , like my favorite enterprise company GOOG :)
+google public DNS 8.8.8.8(IPv4) and 2001:4860:4860::8888(IPv6)

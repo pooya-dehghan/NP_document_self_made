@@ -1,0 +1,8 @@
+houses and organizations have small local network area (LAN) (there is a reserved addresses for this case in IPv4)
+when a packet originates from a device on an IPv4 local network it must undergo Network Address Translation (NAT) before being routed on the internet
+a router that implements NAT remembers which local address a connection is established from.
+the devices from the same LAN can directly address one another by their local address .
+however any traffic communicated to the internet must undergo address Translation by the router . 
+the router does this by modifying the source ip address from original LAN ip address to its public internet ip address
+Likewise, when the router receives the return communication, it must modify the destination address from its public IP to the private IP of the original sender. It knows the private IP address because it was stored in memory after the first outgoing packet
+NAT does a lot more than this modification and has more serious jobs too (like modifying packets and so on)
