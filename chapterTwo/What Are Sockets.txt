@@ -1,0 +1,3 @@
+A socket is one endpoint of a communication link between systems . your app sends and recieve all of its network data through a socket 
+there are a few different socket apis . first of em berekly.
+windows socket api called winsock

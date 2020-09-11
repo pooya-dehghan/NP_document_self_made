@@ -1,0 +1,46 @@
+Winsock requires initialization before use.it also requires a clean up function after we are finished using it.these initialization and cleaups 
+steps are not used with berkeley sockets.
+
+We will use the C preprocessor to run the proper code on Windows compared to Berkeley socket systems. By using the preprocessor statement, #if defined(_WIN32), we can include code in our program that will only be compiled on Windows.
+
+/*sock_init.c*/
+
+#if defined(_WIN32)
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0600
+#endif
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#pragma comment(lib, "ws2_32.lib")
+
+#else
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <unistd.h>
+#include <errno.h>
+
+#endif
+
+#include <stdio.h>
+
+int main() {
+
+#if defined(_WIN32)
+    WSADATA d;
+    if (WSAStartup(MAKEWORD(2, 2), &d)) {
+        fprintf(stderr, "Failed to initialize.\n");
+        return 1;
+    }
+#endif
+
+    printf("Ready to use socket API.\n");
+
+#if defined(_WIN32)
+    WSACleanup();
+#endif
+
+    return 0;
+}
