@@ -1,0 +1,10 @@
+network programming is usualy uses the client server model which in this model server listens for new connections with a published address
+the client knowing the servers address is the one first establishes the connections initialy , once connection is established 
+both client and server can send and receive data , this continues till client or server terminates the connection
+
+an alternative paradigm is peertopeer model which both sides are client and server simultaniously
+
+Network programs can usually be described as one of four types—a TCP server, a TCP client, a UDP server, or a UDP client. Some protocols call for a program to implement two, or even all four types,
+but it is useful for us to consider each of the four types separately.
+
+

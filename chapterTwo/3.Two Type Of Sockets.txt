@@ -1,0 +1,17 @@
+Sockets come into two basic types [connection_oriented , connectionless](these terms refer to types of protocols).
+
+the two protocols that are used today are Transmission Control Protocol (TCP) and User Datagram Protocol (UDP).
+tcp is connection oriented and udp is connectionless.
+
+in a connectionless protocol such as udp each data packet addressed individually , each data packet is completly independant from 
+other dps that come before or after it.
+
+!UDP dosent garantee that any packet will arrive or not , it doenst provide any method that you get to know if packet has reached destination or not
+even there is possibility that one dp will reach twice!! :()
+
+on the other hand tcp garantee that packet will arrive and will recieve in order that is sent.
+for this reason tcp is used by many protocol such as HTTP and FTP SSH and SMPT
+
+UDP is used by DNS ,(it is suitable for this because an entire req and res can fit in single packet)
+
+udp is commonly used in real time app like video streaming and multiplayer video games.

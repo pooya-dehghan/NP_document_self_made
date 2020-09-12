@@ -1,0 +1,13 @@
+The socket APIs provide many functions for use in network programming. Here are the common socket functions that we use in this book:
+
+! socket() --> create and initialize a new socket
+@ bind() --> associate a socket with a particular local IP address and port
+# listen () --> is used on the server to cause a TCP socket to listen for new connections
+$ connect() --> is used on the client to set the remote address and port , in the case of tcp it establishes a connections
+% accept  () --> is used on the server to create a new socket for an incoming TCP connections
+^ send() and recv() --> are to used to send and recieve data with a socket
+& sendto() and recvfrom() --> are used to send and recieve data from socket without a bound remote address
+*shutdown() --> is used to close one side of a tcp connection , it is useful to ensure an orderly connection teardown
+!select() --> is used to wait for an event on one or more socket
+@ getnameinfo() and getaddrinfo() --> provide a protocol-independent manner of working with hostnames and addresses
+# setsockopt() --> is used to change some socket options
