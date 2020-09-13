@@ -1,0 +1,6 @@
+All sockets on Unix systems are also standard file descriptors. For this reason, sockets on Unix systems can be closed using the standard close() function.
+ On Windows, a special close function is used instead—closesocket(). It's useful to abstract out this difference with a macro:#if defined(_WIN32)
+#define CLOSESOCKET(s) closesocket(s)
+#else
+#define CLOSESOCKET(s) close(s)
+#endif

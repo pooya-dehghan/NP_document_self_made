@@ -1,0 +1,15 @@
+a tcp client program must firt know tge tcp servers addrss , this is often input by user.
+tcp client takes this address and uses the getaddrinfo() function to resolve it into a struct addrinfo structure.
+the client then creates a socket() using a call to socket() .
+the client then establishes a new connetion using connect() , at this point client can freely exchange data using send() , recv().
+
+A TCP server listens for connections at particular port number on a particular interface.
+the program must first initialize a struct addrinfo structur with proper listening IP address and port number .
+the getaddrinfo() is usefull so that you can do this with IPv4 and IPv6 independantlly.
+the server then creates socket with socket() function .
+the socket must be bound to listening IP and port number [this is done by bind() function]
+the server program then calls listen() [which puts the socket in a state where it listens for new connections]
+the server then calls accept() [which will wait for until a client establishes a connections to the server](when a new connection established accept returns a new socket)
+the new socket can be used to exchange data with send() and recv() function.
+meanwhile the first socket remains listening for new connections , and repeated calls to accept() allow the server to handle 
+multiple clients

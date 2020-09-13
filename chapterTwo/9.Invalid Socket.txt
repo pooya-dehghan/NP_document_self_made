@@ -1,0 +1,6 @@
+On Windows, socket() returns INVALID_SOCKET if it fails. On Unix, socket() returns a negative number on failure. This is particularly problematic as the Windows SOCKET type is unsigned.
+ I find it useful to define a macro to indicate if a socket descriptor is valid or not:#if defined(_WIN32)
+#define ISVALIDSOCKET(s) ((s) != INVALID_SOCKET)
+#else
+#define ISVALIDSOCKET(s) ((s) >= 0)
+#endif

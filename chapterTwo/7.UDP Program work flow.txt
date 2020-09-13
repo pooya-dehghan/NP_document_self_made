@@ -1,0 +1,9 @@
+A UDP client must know the address of the remote UDP peer in order to send the first packet.
+the udp client uses getaddrinfo() to resolve the address into a struct addrinfo structure.once this is done client creates a socket of the proper type
+the client can then call sendto() on the socket to send first packet [client can continue to call sendto() and recvfrom() to send and receive packets]
+(udp client must first send first packet and cannot receive data first)[because other peer wouldnt know where to send data before that]
+
+A UDP server listens for connections from a UDP client. This server should initialize struct addrinfo structure with the proper listening IP address and port number
+The getaddrinfo() function can be used to do this in a protocol-independent way.
+The server then creates a new socket with socket() and binds it to the listening IP address and port number using bind(). 
+At this point, the server can call recvfrom(), which causes it to block until it receives data from a UDP client. After the first data is received, the server can reply with sendto() or listen for more data (from the first client or any new client) with recvfrom().
