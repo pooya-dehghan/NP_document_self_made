@@ -1,0 +1,10 @@
+our program first uses getaddrinfo() to resolve the server address from command line.
+then the socket is created with call to socket.
+the fresh socket has connect() called on it to connect to the server.
+we use select() to monitor for socket input . {select() also monitor for terminal keyboard input on non_windows system}
+[on windows we use the _kbhit() function to detect terminal input].
+if terminal input is available we send it over socket using send() .
+if select() indicate that socket data is available , we read it with recv() and display it to the terminal.
+this seleect() loop is repeated until socket is closed.
+
+code will be there soon :)) good luck.

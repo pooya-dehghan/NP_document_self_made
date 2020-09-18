@@ -1,0 +1,12 @@
+we can iterate through an fd_set using simple for loop.Essentially , we start at 1,since all socket descriptors are positive numbers .
+and we continue through to the largest known socket descriptor in set.
+for each possible socket descriptor, we simply use FD_ISET to check if it is in the set.
+
+//code ...
+
+SOCKET i;
+for(i = 1; i<=max_socket; i++){
+  if(FD_ISET(i,&master)){
+    //do something
+  }
+}
