@@ -1,0 +1,4 @@
+our prefered teqnique for multiplexing is to use the SELECT() function.
+we can give select() a set of sockets,and it tells us which ones are ready to be read.
+it also can tell us which sockets are ready to write to and which sockets have exceptions.
+using SELECT() keeps our program portable.

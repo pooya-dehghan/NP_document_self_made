@@ -1,0 +1,53 @@
+the select() function has many usefull features.
+given a set of sockets.
+it can be used to block until any of the sockets in that set is ready to be read from .
+it can also be configured to return if a socket is ready to be written to or a socket has error.
+{Additionaly we can set a timeout in case none of those event dont happen socket return}
+
+the C function prototype for SELECT() is like this::
+int select(int nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,struct timeval *timeout);
+
+before calling select() , we must first add our sockets into an fd_set.
+if we have three sockets.socket_listen,socket_a,and socket_b,we add them to an fd_set .
+like this:
+
+fd_set our_sockets;
+FD_ZERO(&our_sockets);
+FD_SET(socket_listen, &our_sockets);
+FD_SET(socket_a,&our_sockets);
+FD_SET(socket_b,&our_sockets);
+
+it is important to zero out using FD_ZERO.
+socket descriptor are then added to the fd_set one at a time using fd_set.
+a socket can be removed using FD_CLR and we can check for the presece of a socket in the set using FD_ISSET().
+
+select() also requires that we pass a number that's larger than the largest socket descriptor we are going to monitor. (This parameter is ignored on Windows, but we will always do it anyway for portability.) We store the largest socket descriptor in a variable, like this:SOCKET max_socket;
+max_socket = socket_listen;
+if (socket_a > max_socket) max_socket = socket_a;
+if (socket_b > max_socket) max_socket = socket_b;
+
+when we call select(),it modifies our fd_set of sockets to indicate which sockets are ready.
+for that reason,we want to copy our socket set before calling it .
+we can copy an fd_set with a simple assignment like this , and then call select() like this.
+fd_set copy;
+copy = our_sockets;
+select(max_socket + 1,&copy,0,0,0);
+
+this call blocks until atleast one of the sockets is ready to be read from .
+When select() returns,copy is modified so that it only contains the sockets that are ready to be read from.
+we can check which sockets are still in copy using FD_ISSET(),like this.
+
+if (FD_ISSET(socket_listen, &copy)) {
+    //socket_listen has a new connection
+    accept(socket_listen...
+}
+
+if (FD_ISSET(socket_a, &copy)) {
+    //socket_a is ready to be read from
+    recv(socket_a...
+}
+
+if (FD_ISSET(socket_b, &copy)) {
+    //socket_b is ready to be read from
+    recv(socket_b...
+}

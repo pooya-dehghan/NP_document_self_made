@@ -1,0 +1,5 @@
+the socket api are blocking by default.
+when you use accept() for an incomming connection, your program`s execution blocked untill a new incomming
+connection is acually available.
+when you use recv() to read incoming data your program`s execution blocks untill new data is acutally available
+ 

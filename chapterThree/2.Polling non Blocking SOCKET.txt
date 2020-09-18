@@ -1,0 +1,6 @@
+it is posible to configure sockets to use non blockig operation.
+once in non blocking mode , a call to recv() with no data will return immediately.
+a program with this structure in mind could simly check each of its active sockets in turn continusly.
+it would handle every socket that returned data and ignore any socket that didnt.
+this is called POLLING 
+we are not gonna use POLLING :)) 
