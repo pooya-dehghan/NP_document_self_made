@@ -1,0 +1,22 @@
+microservices have become popular increasingly in past few years.
+the idea of microservices is that large programming problems can be split up into many subsystems that communicate over a network.
+if your program needs to foramt a string you could add to your program to do that ,but writting code is hard .
+alternativly you could keep your program simple and instead connect to a service that provides string formating for you.
+this has added advantage that many programs can use this same service without reinventing the wheel.
+
+  UNFORTUNATELY , THE MICROSERVICES PARADIGM HAS LARGELY AVOIDED THE C ECOSYSTEM; UNTIL NOW.
+
+as a motivating example we are going to build a TCP server that converts string into uppercase.
+if client connect and send hello server returns HELLO.
+this will serve as a very basic microservice
+
+!our tcp server uses getaddrinfo() to obtain the local address to listen on it.
+@it creates socket with socket().
+#uses bind() to associate the local address to the socket.
+$uses listen() to begin listening for new connections.
+%we call select() which alerts us if new connection is available or if any of our established connections have new data ready.
+only if we know that new connection is waiting do we call accept().
+all established connections are put into an fd_set, which is passed to every subsequent select() call.
+in this same way , we know which connections would block on recv(), and we only service those connections that we know will not block.
+
+when data is received we call touppercase func and send it with send() to client.

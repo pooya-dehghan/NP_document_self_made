@@ -1,0 +1,64 @@
+the select function determines the status of one or more sockets, waiting if necessary , to perform synchorous I/O.
+
+PARAMETERS {
+  nfds,
+  readfds,
+  writefds,
+  exceptfds,
+  timeout
+}
+
+nfds : ignored,the nfds parameter is included only for compatibility with berekley socketes.
+
+readfds : an optional pointer to set a of sockets to be checked for readibility.
+
+writefds : an optional pointer to set of sockets to be checked for writability.
+
+exceptfds : an optional pointer to set of sockets to be checked for errors.
+
+timeout : the maximum time for select to wait , provided in the form of a TIMEVAL structure. SET the timeout parameter to null,
+for blocking operations.
+
+RETURN VALUE 
+
+the select function returns total number of sockets handles that are  ready and contained in the fd_set structures.{zero if time out expires}
+{or SOCKET_ERROR if an error occured}
+if the return value is SOCKET_ERROR ,WSAGetLastError can be used to retrieve a specific error.
+
+\\\\\\\\\\\\\\\\\\\\\\\............................................................................................../////////////////////
+
+previously we said 
+the select functions is used to determines the status of one or more sockets.
+for each socket the caller can request information on read , write , or error status.
+the set of socket for which a given status is requested is indicated by an fd_set structure.
+the sockets contained within the fd_set structures must be associated with single service provide.
+for the purpose of this restricion , sockets are considerd to be from same service provider if the WSAPROTOCOL_INFO structures describing their protocol have the same providerid value.
+upon return , the structures are updated to reflect the subset of these sockets that meet specified conditions.
+the select function returns the number of socket meeting conditions.a set of macro is provided for manipulating an fd_set structure.
+these macros are compatible with those used in the berekley software, but the underlying represantation is completely diffrent.
+
+the parameter readfds identifies the sockets that are to be checked for readibility .if the socket is currently in the listen state ,
+it will be marked as readable if an incoming connection request has been received such as that an accept is guaranteed to complete witout blocking.
+for other sockets, readibility means that queued data is available for reading such that a call to recv is guaranteed not to block.
+
+for connection-oriented sockets, readibility can also indicate that a request ro close the socket has been received from the peer.
+if the virtual circuit was closed gracefully , and all data was received , then a recv will return immediately with zero bytes read.
+if the virtual circuit was reset , then a recv will complete immediately with an error code such as WSAECONNREST . the presence of OOB data will be checked if the socket option SO_OOBINLINE has been enabled
+
+the parameter writefds identifies the sockets that are to be checked for writablity. if a socket is processing  a connect call (nonblocking)
+a socket is writeable if the connection establishment successfuly complete .if the socket is not processing a connect call, writability means a send are guaranteed to succeed.
+however , they can block on a blocking socket if the len parameter exceeds the amount of outgoing system buffer space available.
+it is not specified how long these guarantees can be assumed to be valid, particularly in a multithread environment.
+
+Any two of the parameters, readfds, writefds, or exceptfds, can be given as null. At least one must be non-null, and any non-null descriptor set must contain at least one handle to a socket.
+In summary, a socket will be identified in a particular set when select returns if:
+
+readfds :
+if listen has been called and a connection is pending , accept will succeed
+data is available for reading 
+connection has been closed / reset / terminated
+
+writefds : 
+if processing a connect call (noneblocking) connecton has succeed.
+data can be sent
+
