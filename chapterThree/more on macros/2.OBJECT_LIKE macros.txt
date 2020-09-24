@@ -1,0 +1,59 @@
+an object_like macro is a simple identifier which will be replaced by code fragment.
+it is called object_like because it looks like a data object in code that uses it.
+they are most commonly used to give symbolic names to numeric constant.
+
+you create macros with the "#define" directive."#define" is followed by the name of the macro and then the token sequence it should be an abbreviation for,
+which variouly reffered to as the macro "body",EXPANSION OR REPLACEMENT LIST.
+for example :
+
+#define BUFFER_SIZE 1024;
+
+defines a macro named BUFFER_SIZE as an abbreviation for 1024,if somewhere in code we have something like this :
+foo = (char *) malloc (BUFFER_SIZE);
+then the C preprocessor will recognize and EXPAND the macro BUFFER_SIZE.the C compiler will see the same tokens as it would if you had written: 
+foo = (char *) malloc(1024);
+
+by convention , macros names are written in uppercase.programs are easier to read when it is possible to tell at a glance which names are macros.
+the macros body ends at the end of "#define" line. you may continue the definition onto multiple lines, if necessary , using backslash-newline.
+when the macros is expanded , however, it will all come out on one line.for example ,
+
+#define NUMBERS 1, /
+                2, /
+                3
+int x[] = {NUMBERS};
+int x[] = {1,2,3};
+
+the most common visible consequence of this is surprising line numbers in error messages.
+there is no restriction on what can go on macro body provided it decomposes into valid preprocessing tokens .paratheses need not balance ,
+and the body need not resemble valid c code .(If it does not, you may get error messages from the C compiler when you use the macro.)
+
+the C preprocessor scans your program sequentially .macro difinitions take effect at the place you write them ,therefore , the folowing input to the C preprocessor.
+foo = X;
+#define X 4;
+bar = X;
+
+produces : 
+foo = 4;
+bar = X;
+
+when preprocessor expands a macro name , the macros expansion replaces the macro invocation , then the expansion is examined for more macros to expand. for example:
+
+#define TABLESIZE BUFSIZE;
+#define BUFSIZE 1024;
+TABLESIZE
+
+TABLESIZE is expanded first to produce BUFSIZE , then that macro is expanded to produce the final result , 1024
+notice that BUFSIZE was not defined when TABLESIZE was defined. the "#define" for TABLESIZE uses exactly the expansion you specify -- in this case,
+BUFSIZE -- and does not check to see whether it too contains macro names.
+only when you TABLESIZE is the result of its expansion scanned for more macros names 
+
+This makes a difference if you change the definition of BUFSIZE at some point in the source file. TABLESIZE, defined as shown, will always expand using the definition of BUFSIZE that is currently in effect:
+
+#define BUFSIZE 1020
+#define TABLESIZE BUFSIZE
+#undef BUFSIZE
+#define BUFSIZE 37
+Now TABLESIZE expands (in two stages) to 37.
+
+If the expansion of a macro contains its own name, either directly or via intermediate macros, it is not expanded again when the expansion is examined for more macros. This prevents infinite recursion. See Self-Referential Macros, for the precise details.
+

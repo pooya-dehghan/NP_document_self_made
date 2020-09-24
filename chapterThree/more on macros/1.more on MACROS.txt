@@ -1,0 +1,4 @@
+a macro is a fragment of code which has been given a name.
+whenever you are using same piece of code you can use a macro instead.
+there are two kind of macros {they differ mostly in what they look like when they are used}
+OBJECT_LIKE macros resemble data objects when used, FUNCTION_LIKE macros resemble function call.
